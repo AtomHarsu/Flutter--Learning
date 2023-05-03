@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'custom _dialog.dart';
 import 'otpverification.dart';
 
 class LoginMobile extends StatefulWidget {
@@ -13,243 +14,7 @@ class _LoginMobileState extends State<LoginMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      contentPadding: const EdgeInsets.all(0.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0)),
-                      backgroundColor: Colors.green,
-                      title: Column(
-                        children: [
-                          Container(
-                            width: 75,
-                            height: 75,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle, color: Colors.white),
-                            child: const Icon(
-                              Icons.done,
-                              color: Colors.green,
-                              size: 50,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                        ],
-                      ),
-                      content: Stack(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(16),
-                                  bottomRight: Radius.circular(16),
-                                )),
-                            height: MediaQuery.of(context).size.height * 0.18,
-                            width: double.infinity,
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Text(
-                                  'Success',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                const Text(
-                                  'Transaction completed succesfully!',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.22,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.045,
-                                    decoration: const BoxDecoration(
-                                        color: Colors.cyan,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(16))),
-                                    child: const Center(
-                                        child: Text(
-                                      'Okay',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    )),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              child: const Text('Show Dialog'))),
-    );
-  }
-}
-
-class NewWidgetSetSnackBar extends StatelessWidget {
-  const NewWidgetSetSnackBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    behavior: SnackBarBehavior.floating,
-                    content: CustomSnackBar(
-                        icon: Icons.check_circle_outline,
-                        colors: Colors.green,
-                        text: 'Welcome to The Flutter Community',
-                        title: 'Hello!Flutter Dev'),
-                  ),
-                );
-              },
-              child: const Text('Snackbar Success')),
-          ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    behavior: SnackBarBehavior.floating,
-                    content: CustomSnackBar(
-                        icon: Icons.close,
-                        colors: Colors.red,
-                        text: 'Welcome to The Flutter Community',
-                        title: 'Hello!Flutter Dev'),
-                  ),
-                );
-              },
-              child: const Text('Snackbar Error')),
-          ElevatedButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    elevation: 0,
-                    backgroundColor: Colors.transparent,
-                    behavior: SnackBarBehavior.floating,
-                    content: CustomSnackBar(
-                        icon: Icons.report,
-                        colors: Colors.orange,
-                        text: 'Welcome to The Flutter Community',
-                        title: 'Hello!Flutter Dev'),
-                  ),
-                );
-              },
-              child: const Text('Snackbar Alert')),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomSnackBar extends StatelessWidget {
-  String? title;
-  String? text;
-  Color? colors;
-  IconData icon;
-
-  CustomSnackBar(
-      {super.key,
-      required this.text,
-      required this.title,
-      required this.icon,
-      required this.colors});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(16),
-          height: 70,
-          decoration: BoxDecoration(
-            color: colors,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                20,
-              ),
-            ),
-          ),
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 40,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title!,
-                      style: const TextStyle(
-                          fontSize: 15, color: Colors.white, letterSpacing: 1),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                    ),
-                    const Spacer(),
-                    Text(
-                      text!,
-                      style: const TextStyle(
-                          fontSize: 12, color: Colors.white, letterSpacing: 1),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 2,
-          bottom: 2,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 12),
-            child: Icon(
-              icon,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ],
+      body: NewWidget(),
     );
   }
 }
@@ -346,11 +111,11 @@ class NewWidget extends StatelessWidget {
                       height: 50,
                     ),
                     Row(
-                      children: [
-                        const SizedBox(
+                      children: const [
+                        SizedBox(
                           width: 25,
                         ),
-                        const Align(
+                        Align(
                           alignment: Alignment.topLeft,
                           child: Text(
                             "Phone Number",
