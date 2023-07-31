@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learning/creat/file_provider.dart';
+import 'package:learning/reCaptch_verification_flutter.dart';
 import 'package:provider/provider.dart';
-import 'custompassword_genrate_flutter.dart';
 import 'dr/data_provider.dart';
 
 void main() {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: GeneratePassword(),
+        home: LoginPage(),
       ),
     );
   }
