@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learning/creat/file_provider.dart';
 import 'package:provider/provider.dart';
+import 'custompassword_genrate_flutter.dart';
 import 'dr/data_provider.dart';
-import 'dr/ui.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: UiScreen1(),
+        home: GeneratePassword(),
       ),
     );
   }
