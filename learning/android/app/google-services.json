@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "508412146128",
+    "project_id": "busbuddyapp-a2965",
+    "storage_bucket": "busbuddyapp-a2965.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508412146128:android:2c81e3d15aa86cb877c9d5",
+        "android_client_info": {
+          "package_name": "com.auzatech.bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508412146128-rtuts6rpldhkbkoahs5ria7h8m6fvogq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.auzatech.bus",
+            "certificate_hash": "471a031f2f20cf3d8630caae28100b6ba22f6f38"
+          }
+        },
+        {
+          "client_id": "508412146128-s4gkhjmt91vr4i77jqfdbs1lhp68b19t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.auzatech.bus",
+            "certificate_hash": "1e9018927a5d43b6a79d0d01af00c352cb9116b7"
+          }
+        },
+        {
+          "client_id": "508412146128-jqn9hvvj612v0mf7do9an5bu4vqfuv4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfLUWCkrMGhNRxHKRjLple6xHLKaF6BUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508412146128-jqn9hvvj612v0mf7do9an5bu4vqfuv4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

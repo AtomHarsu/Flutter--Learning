@@ -1,86 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter/services.dart';
+import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
 
-const String recaptchaSiteKey = '6LcO5WwnAAAAAEFs4Q6AQ9ZArVWdd4DyYG246xp_';
-const String backendUrl = '6LcO5WwnAAAAAP8TiHHv8wJ4uIjnnGkn5DtDJ0wE';
+/* const String recaptchaSiteKey = '6LcO5WwnAAAAAEFs4Q6AQ9ZArVWdd4DyYG246xp_'; */
+/* const String backendUrl = '6LcO5WwnAAAAAP8TiHHv8wJ4uIjnnGkn5DtDJ0wE'; */
 
-class LoginPage extends StatefulWidget {
+class MyAppData extends StatefulWidget {
+  const MyAppData({Key? key}) : super(key: key);
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<MyAppData> createState() => _MyAppDataState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
-  String? verificationToken;
-
-  @override
-  void initState() {
-    super.initState();
-    _getCaptch();
-  }
-
-  void _getCaptch() {
-    flutterWebviewPlugin.onUrlChanged.listen((String url) {
-      if (url.startsWith(backendUrl)) {
-        // Extract verification token from the URL
-        setState(() {
-          verificationToken = Uri.parse(url).queryParameters['token'];
-        });
-        // Close the WebView after token extraction
-        flutterWebviewPlugin.close();
-      }
+class _MyAppDataState extends State<MyAppData> {
+  String _token = 'Click the below button to generate token';
+  bool badgeVisible = true;
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> getToken() async {
+    String token = await GRecaptchaV3.execute('submit') ?? 'null returned';
+    setState(() {
+      _token = token;
     });
-  }
-
-  void _startVerification() {
-    flutterWebviewPlugin.launch(
-      'https://www.google.com/recaptcha/api.js?render=$recaptchaSiteKey',
-      withJavascript: true,
-      clearCache: true,
-      clearCookies: true,
-      hidden: true,
-    );
-  }
-
-  void _verifyToken(String token) async {
-    final response = await http.post(
-      Uri.parse('$backendUrl/verify'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({'token': token}),
-    );
-
-    if (response.statusCode == 200) {
-      // Token verification successful, perform required actions here.
-      print('Token verification successful!');
-    } else {
-      // Token verification failed, handle accordingly.
-      print('Token verification failed.');
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('reCAPTCHA Verification'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            _startVerification();
-          },
-          child: Text('Start Verification'),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Recaptcha V3 Web example app'),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (verificationToken != null) {
-            _verifyToken(verificationToken!);
-          }
-        },
-        child: Icon(Icons.check),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SelectableText('Token: $_token\n'),
+              ElevatedButton(
+                onPressed: getToken,
+                child: const Text('Get new token'),
+              ),
+              OutlinedButton.icon(
+                onPressed: () {
+                  if (badgeVisible) {
+                    GRecaptchaV3.hideBadge();
+                  } else {
+                    GRecaptchaV3.showBadge();
+                  }
+                  badgeVisible = !badgeVisible;
+                },
+                icon: const Icon(Icons.legend_toggle),
+                label: const Text("Toggle Badge Visibilty"),
+              ),
+              TextButton.icon(
+                  label: const Icon(Icons.copy),
+                  onPressed: () {
+                    Clipboard.setData(const ClipboardData(
+                        text: "https://pub.dev/packages/g_recaptcha_v3"));
+                  },
+                  icon: const SelectableText(
+                      "https://pub.dev/packages/g_recaptcha_v3")),
+            ],
+          ),
+        ),
       ),
     );
   }
